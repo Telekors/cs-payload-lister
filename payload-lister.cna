@@ -1,0 +1,22 @@
+$hostname = "<INSERT HOSTED DOMAIN HERE>";
+$protocol = "https://";
+on ready {
+        @array = sites();
+        println(@array[0]["URI"]);
+        $arrsize = size(@array);
+        println("<!DOCTYPE html>\n<html>\n<body>")
+        println("<h1>Payload Testing Page</h1>\n<p>");
+        $counter = 0;
+        while ($counter <= $arrsize)
+        {
+                #println("<a href = \"$protocol$hostname@array[$arrsize]['URI']\">$arrsize</a>");
+                $url = @array[$counter]["URI"];
+                $fullurl = join('' , @($protocol, $hostname, $url));
+                $filename = replaceAt($url, "", 0, 1);
+                println("<a href = \'$fullurl\'> $filename </a><br>");
+                $counter = $counter + 1;
+        }
+        println("</p>\n</body>\n</html>");
+}
+
+# <CREATED BY TELEKORS>
